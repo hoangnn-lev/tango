@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  tango
+
+  Created by Hoang on 9/28/14.
+  Copyright (c) 2014 Hoang. All rights reserved.
+*/
+
+"English" = "英語";
+"Japanese" = "日本の";
+"Korean" = "韓国人";
+"categories" = "カテゴリー";
+
+"Top" = "최고";
+"Favorites" = "お気に入り";
+"History" = "歴史";
+"Setting" = "設定";
+
+"Language" = "言語";
+"Share" = "共有";
+"About" = "約";

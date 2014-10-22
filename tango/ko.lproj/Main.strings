@@ -1,0 +1,39 @@
+
+/* Class = "IBUIButton"; normalTitle = "Favorites"; ObjectID = "52g-a7-DpU"; */
+"52g-a7-DpU.normalTitle" = "Favorites";
+
+/* Class = "IBUINavigationItem"; title = "Categories"; ObjectID = "D8n-NA-1Mh"; */
+"D8n-NA-1Mh.title" = "Categories";
+
+/* Class = "IBUILabel"; text = "How old are you ?"; ObjectID = "Nrh-GE-tbO"; */
+"Nrh-GE-tbO.text" = "How old are you ?";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "VkN-Sk-hE6"; */
+"VkN-Sk-hE6.text" = "Title";
+
+/* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "X2d-Pm-6wV"; */
+"X2d-Pm-6wV.text" = "Subtitle";
+
+/* Class = "IBUIButton"; normalTitle = "Play"; ObjectID = "dsq-lT-huB"; */
+"dsq-lT-huB.normalTitle" = "Play";
+
+/* Class = "IBUINavigationItem"; title = "Setting"; ObjectID = "hqa-1y-HNw"; */
+"hqa-1y-HNw.title" = "Setting";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "nL3-YC-Eze"; */
+"nL3-YC-Eze.text" = "Title";
+
+/* Class = "IBUITabBarItem"; title = "Setting"; ObjectID = "nOM-oB-dsv"; */
+"nOM-oB-dsv.title" = "Setting";
+
+/* Class = "IBUILabel"; text = "Bạn bao nhiêu tuổi."; ObjectID = "qeO-nw-UIl"; */
+"qeO-nw-UIl.text" = "Bạn bao nhiêu tuổi.";
+
+/* Class = "IBUILabel"; text = "Language"; ObjectID = "qil-61-jji"; */
+"qil-61-jji.text" = "Language";
+
+/* Class = "IBUILabel"; text = "Share"; ObjectID = "uJH-jd-No9"; */
+"uJH-jd-No9.text" = "Share";
+
+/* Class = "IBUILabel"; text = "About"; ObjectID = "wF3-6T-4Mf"; */
+"wF3-6T-4Mf.text" = "About";
