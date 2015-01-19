@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *language;
 @property (weak, nonatomic) IBOutlet UITableViewCell *share;
 @property (weak, nonatomic) IBOutlet UITableViewCell *about;
+@property (weak, nonatomic) IBOutlet UITableViewCell *contact;
 
 @end

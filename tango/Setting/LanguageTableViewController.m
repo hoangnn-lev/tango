@@ -29,18 +29,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self init_views];
-}
-
--(void) init_views{
-    lng = [[NSArray alloc] initWithObjects:
-           [Language get:@"English" alter:nil],
-           [Language get:@"Japanese" alter:nil],
-           [Language get:@"Korean" alter:nil], nil];
     self.tableView.tableFooterView  = [[UIView alloc] initWithFrame:CGRectZero];
-    
+    self.navigationItem.title = @"";
+    lng = [[NSArray alloc] initWithObjects:@"en_vn_1.png",@"jp_vn_1.png",@"kr_vn_1.png", nil];
 }
-
+-(BOOL) hidesBottomBarWhenPushed{
+    return YES;
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -55,19 +50,6 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [lng count];
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"language" forIndexPath:indexPath];
-    cell.textLabel.text = lng[indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -90,14 +72,45 @@
     UITabBarItem *item1 = [tabBar.items objectAtIndex:1];
     UITabBarItem *item2 = [tabBar.items objectAtIndex:2];
     UITabBarItem *item3 = [tabBar.items objectAtIndex:3];
+    UITabBarItem *item4 = [tabBar.items objectAtIndex:4];
     
-    item0.title = [Language get:@"Top" alter:nil];
-    item1.title = [Language get:@"Favorites" alter:nil];
-    item2.title = [Language get:@"History" alter:nil];
-    item3.title = [Language get:@"Setting" alter:nil];
+    item0.title = [Language get:@"Translate" alter:nil];
+    item1.title = [Language get:@"History" alter:nil];
+    item2.title = [Language get:@"Home" alter:nil];
+    item3.title = [Language get:@"Favorites" alter:nil];
+    item4.title = [Language get:@"Setting" alter:nil];
     
-    [self init_views];
-    [self.tableView reloadData];
+    [tableView reloadData];
+    
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSString *cellId = [NSString stringWithFormat:@"cell-%li", (long)indexPath.row];
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell==nil) {
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(20, 13, 215, 18)];
+        img.image = [UIImage imageNamed:lng[indexPath.row]];
+        
+        [cell addSubview:img];
+        
+    }
+    
+    NSString *language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
+    if ([language isEqualToString:@"en"] && indexPath.row==0) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else if ([language isEqualToString:@"ja"] && indexPath.row==1) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else if ([language isEqualToString:@"ko"] && indexPath.row==2) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
 }
 
 @end

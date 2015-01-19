@@ -11,11 +11,18 @@
 "Korean" = "Korean";
 "categories" = "Categories";
 
-"Top" = "Top";
+"Home" = "Home";
 "Favorties" = "Favorties";
 "History" = "History";
-"Setting" = "Setting";
+"Setting" = "Other";
 
-"Language" = "Language";
-"Share" = "Share";
-"About" = "About";
+"Language" = "Translation language";
+"Share" = "Invite friend";
+"Contact" = "Contact";
+"About" = "About L-translate";
+
+"Translate" = "Translate";
+"Type some text..." = "Type some text...";
+
+"Done" = "Done";
+

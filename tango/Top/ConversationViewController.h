@@ -10,4 +10,6 @@
 
 @interface ConversationViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 @property int topic_id;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property NSString* topic_name;
 @end

@@ -11,11 +11,17 @@
 "Korean" = "한국어";
 "categories" = "카테고리";
 
-"Top" = "최고";
+"Home" = "홈";
 "Favorites" = "역사";
 "History" = "역사";
-"Setting" = "설정";
+"Setting" = "다른";
 
-"Language" = "언어";
-"Share" = "주";
-"About" = "소개";
+"Language" = "번역 언어";
+"Share" = "친구 초대";
+"Contact" = "접촉";
+"About" = "정보L-translate";
+
+"Translate" = "번역";
+"Type some text..." = "텍스트를 입력...";
+
+"Done" = "끝난";

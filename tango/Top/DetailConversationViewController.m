@@ -26,18 +26,28 @@
     return self;
 }
 
+-(BOOL) hidesBottomBarWhenPushed{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     
     [super viewDidLoad];
     current_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     
-    self.firstLanguage.text = self.conv.native_language;
-    self.secondLanguage.text = self.conv.second_language;
+    self.firstLanguage.text = self.conv.second_language;
+    self.firstLanguage.numberOfLines = 0;
+    [self.firstLanguage sizeToFit];
+
+    self.secondLanguage.text = self.conv.native_language;
+    self.secondLanguage.numberOfLines = 0;
+    [self.secondLanguage sizeToFit];
 
     if ([self.conv.favorite isEqualToString:@"1"]) {
         self.fav.selected = YES;
     }
+    self.flag.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_flag_translate_1.png",current_language]];
     [self updateHistory];
 }
 
@@ -49,7 +59,7 @@
     [[DBManager getSharedInstance] updateRecord:sql];
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     
     NSString *check_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     if (![current_language isEqualToString:check_language]) {
@@ -96,6 +106,14 @@
     self.fav.selected = !self.fav.selected;
     NSString *sql = [NSString stringWithFormat:@"update conversations set favorite = '%hhd'  where id=%d", self.fav.selected, self.conv.id];
    [[DBManager getSharedInstance] updateRecord:sql];
+}
+
+- (IBAction)share:(id)sender {
+    NSMutableArray *sharingItems = [NSMutableArray new];
+    NSString *text = [NSString stringWithFormat:@"%@ \n %@",self.conv.native_language, self.conv.second_language] ;
+    [sharingItems addObject:text];
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
+    [self presentViewController:activityController animated:YES completion:nil];
 }
 
 

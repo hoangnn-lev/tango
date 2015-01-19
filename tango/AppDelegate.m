@@ -17,6 +17,46 @@
         [Language setLanguage:@"en"];
     }
     
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    
+    UITabBarItem *item0 = [tabBar.items objectAtIndex:0];
+    UITabBarItem *item1 = [tabBar.items objectAtIndex:1];
+    UITabBarItem *item2 = [tabBar.items objectAtIndex:2];
+    UITabBarItem *item3 = [tabBar.items objectAtIndex:3];
+    UITabBarItem *item4 = [tabBar.items objectAtIndex:4];
+    
+    item0.title = [Language get:@"Translate" alter:nil];
+    item1.title = [Language get:@"History" alter:nil];
+    item2.title = [Language get:@"Home" alter:nil];
+    item3.title = [Language get:@"Favorites" alter:nil];
+    item4.title = [Language get:@"Setting" alter:nil];
+    
+    tabBar.tintColor = [UIColor colorWithRed:58/255.0f green:203/255.0f blue:124/255.0f alpha:1.0];
+    //[tabBar setBackgroundImage:[[UIImage alloc] init]];
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
+    [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
+    
+    //remove line in navigation
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    
+    //set background navigation
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:58/255.0f green:203/255.0f blue:124/255.0f alpha:1.0]];
+    
+    //back button color
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+   
+    //text color
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
+    //set status bar color
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    //accessory tableview color
+    [[UITableViewCell appearance] setTintColor:[UIColor colorWithRed:58/255.0f green:203/255.0f blue:124/255.0f alpha:1.0]];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    
     return YES;
 }
 							

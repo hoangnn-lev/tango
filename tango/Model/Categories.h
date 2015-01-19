@@ -13,5 +13,5 @@
 @property int id;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *language;
-
+@property (nonatomic, strong) NSString *img;
 @end

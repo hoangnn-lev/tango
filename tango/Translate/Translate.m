@@ -8,83 +8,50 @@
 
 #import "Translate.h"
 #import "FGTranslator.h"
-#import "SVProgressHUD.h"
 
 static NSString *const GOOGLE_API_KEY = @"AIzaSyBUPWCNU_fW5BQ-MgQUAD5m0RUEU_G_FyU";
-static NSString *const BING_CLIENT_ID = @"jp_leverages_tango_ms";
-static NSString *const BING_CLIENT_SECRET = @"hCyHF7l6slstz9cK8IfKT8AQlIvQXdMJ8UoyNocn9WI=";
+static NSString *const BING_CLIENT_ID = @"jp_leverages_tango_bing";
+static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0JCNaJc8kgw=";
 
 @implementation Translate{
     NSString *translateTextResult;
+    NSString *current_language;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    self.navigationItem.title = [Language get:@"Translate" alter:nil];
+    NSString *language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
+    if (![current_language isEqualToString:language]) {
+        current_language = language;
+        self.InputText.text = [Language get:@"Type some text..." alter:nil];
+    }
+    self.flag.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_full_1.png",language]];
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
- 
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.play.hidden = YES;
+    
+    self.InputText.text = [Language get:@"Type some text..." alter:nil];
+    self.InputText.delegate = self;
+    
+    UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
+    [keyboardDoneButtonView sizeToFit];
+    UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                      target:nil action:nil];
+    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                  action:@selector(doneClicked:)];
+    [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:flexBarButton, doneButton, nil]];
+    self.InputText.inputAccessoryView = keyboardDoneButtonView;
+    
     [FGTranslator flushCache];
     [FGTranslator flushCredentials];
-}
-
-- (IBAction)btnTranslate:(id)sender {
-    
-    translateTextResult = @"";
-    NSString *language = @"en";
-    
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];
-    
-    NetworkStatus status = [reachability currentReachabilityStatus];
-
-    if(status == NotReachable)
-    {
-        UIAlertView *objalert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please check network" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        objalert.delegate = self;
-        [objalert show];
-    }else{
-        
-        
-        [SVProgressHUD show];
-        
-        switch (self.FromLanguage.selectedSegmentIndex) {
-            case 0:
-                language = @"en";
-                break;
-            case 1:
-                language = @"ja";
-                break;
-                
-            default:
-                break;
-        }
-        
-        FGTranslator *translator;
-        
-        // using Google Translate
-        //translator = [[FGTranslator alloc] initWithGoogleAPIKey:GOOGLE_API_KEY];
-        
-        // using Bing Translate
-        translator = [[FGTranslator alloc] initWithBingAzureClientId:BING_CLIENT_ID secret:BING_CLIENT_SECRET];
-        
-        NSLog(@"text- %@ language %@", self.InputText.text, language);
-
-        [translator translateText:self.InputText.text withSource:language target:@"vi" completion:^(NSError *error, NSString *translated, NSString *sourceLanguage){
-            
-            if (error)
-            {
-                [self showErrorWithError:error];
-                
-                [SVProgressHUD dismiss];
-            }
-            else
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Translate" message:translated delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Play", nil];
-                [alert show];
-                [SVProgressHUD dismiss];
-                translateTextResult = translated;
-            }
-        }];
-    }
+    [self.loading stopAnimating];
 }
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -127,13 +94,89 @@ static NSString *const BING_CLIENT_SECRET = @"hCyHF7l6slstz9cK8IfKT8AQlIvQXdMJ8U
     AudioServicesPlaySystemSound (soundID);
 }
 
+- (IBAction)play:(id)sender {
+    [self speech:translateTextResult name:translateTextResult];
+}
 
+- (IBAction)clearText:(id)sender {
+    self.InputText.text = @"";
+}
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
     if(buttonIndex == 1) {
-        NSLog(@"dasdsa");
         [self speech:translateTextResult name:translateTextResult];
+    }
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
+    if ([textView.text isEqualToString:[Language get:@"Type some text..." alter:nil]]) {
+        textView.text = @"";
+        textView.textColor = [UIColor whiteColor]; //optional
+    }
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = [Language get:@"Type some text..." alter:nil];
+        textView.textColor = [UIColor lightTextColor]; //optional
+    }
+    [textView resignFirstResponder];
+}
+
+- (IBAction)doneClicked:(id)sender
+{
+    [self.view endEditing:YES];
+    self.play.hidden = YES;
+    translateTextResult = @"";
+    NSString *language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NetworkStatus status = [reachability currentReachabilityStatus];
+    
+    if(status == NotReachable)
+    {
+        UIAlertView *objalert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please check network" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        objalert.delegate = self;
+        [objalert show];
+    }else if(![self.InputText.text isEqualToString:@""] && ![self.InputText.text isEqualToString:[Language get:@"Type some text..." alter:nil]]){
+        
+        
+        [self.loading startAnimating];
+        FGTranslator *translator;
+        
+        // using Google Translate
+        //translator = [[FGTranslator alloc] initWithGoogleAPIKey:GOOGLE_API_KEY];
+        
+        // using Bing Translate
+        translator = [[FGTranslator alloc] initWithBingAzureClientId:BING_CLIENT_ID secret:BING_CLIENT_SECRET];
+        
+        
+        [translator translateText:self.InputText.text withSource:language target:@"vi" completion:^(NSError *error, NSString *translated, NSString *sourceLanguage){
+            
+            if (error)
+            {
+                [self showErrorWithError:error];
+                [self.loading stopAnimating];
+            }
+            else
+            {
+                [self.loading stopAnimating];
+                translateTextResult = translated;
+                self.result.text = translated;
+                self.result.font = [UIFont systemFontOfSize:16];
+                CGRect r = self.play.frame;
+                self.result.frame = CGRectMake(10, r.origin.y , self.view.frame.size.width - r.size.width-40, 80);
+                [self.result sizeToFit];
+                self.play.hidden = NO;
+            }
+        }];
     }
 }
 

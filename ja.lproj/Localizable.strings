@@ -11,11 +11,17 @@
 "Korean" = "韓国人";
 "categories" = "カテゴリー";
 
-"Top" = "최고";
+"Home" = "ホーム";
 "Favorites" = "お気に入り";
 "History" = "歴史";
-"Setting" = "設定";
+"Setting" = "その他";
 
-"Language" = "言語";
-"Share" = "共有";
-"About" = "約";
+"Language" = "翻訳言語";
+"Share" = "友達を招待";
+"Contact" = "コンタクト";
+"About" = "についてL-translate";
+
+"Translate" = "翻訳する";
+"Type some text..." = "テキストを入力...";
+
+"Done" = "終わった";

@@ -39,12 +39,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationItem.title = [Language get:@"History" alter:nil];
-}
-
--(void)viewDidAppear:(BOOL)animated{
-
-    
-    
     NSString *check_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     if (![current_language isEqualToString:check_language]) {
         current_language = check_language;
@@ -52,10 +46,13 @@
     [self getRecord];
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     current_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
 }
 
 -(void) getRecord{
@@ -65,13 +62,28 @@
     }
     
     NSString *sql = [NSString stringWithFormat: @"select id, native_language, second_language, favorite from conversations where modified<>0 and language='%@' order by modified desc", current_language];
-    NSLog(@"%@", sql);
     datas = [[DBManager getSharedInstance] getConversation:sql];
     [self.tableView reloadData];
     
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
 
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        Conversation *conv = [datas objectAtIndex:indexPath.row];
+        NSString *sql = [NSString stringWithFormat: @"update conversations set modified=0  where id=%i", conv.id];
+        [[DBManager getSharedInstance] updateRecord:sql];
+        [datas removeObjectAtIndex:indexPath.row];
+        
+        [self.tableView reloadData];
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -89,8 +101,9 @@
     ConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"row"];
     cell = [[ConversationTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"row"];
     Conversation *conv = [datas objectAtIndex:indexPath.row];
-    cell.textLabel.text = conv.second_language;
-    cell.detailTextLabel.text = conv.native_language;
+    cell.textLabel.text = conv.native_language;
+    cell.detailTextLabel.text = conv.second_language;
+    cell.detailTextLabel.textColor = [UIColor grayColor];
     
     return cell;
 }

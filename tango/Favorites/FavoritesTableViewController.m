@@ -32,11 +32,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     self.navigationItem.title = [Language get:@"Favorites" alter:nil];
-}
-
--(void)viewDidAppear:(BOOL)animated{
-    
-    
     NSString *check_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     if (![current_language isEqualToString:check_language]) {
         current_language = check_language;
@@ -44,11 +39,13 @@
     [self getRecord];
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     current_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
-    
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    self.tableView.tableFooterView = [[UIView alloc] init];
     [self getRecord];
 }
 
@@ -70,6 +67,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Conversation *conv = [datas objectAtIndex:indexPath.row];
+        NSString *sql = [NSString stringWithFormat: @"update conversations set favorite=0  where id=%i", conv.id];
+        [[DBManager getSharedInstance] updateRecord:sql];
+        [datas removeObjectAtIndex:indexPath.row];
+        
+        [self.tableView reloadData];
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -89,7 +102,7 @@
     Conversation *conv = [datas objectAtIndex:indexPath.row];
     cell.textLabel.text = conv.second_language;
     cell.detailTextLabel.text = conv.native_language;
-    
+    cell.detailTextLabel.textColor = [UIColor grayColor];
     return cell;
 }
 

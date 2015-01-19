@@ -17,4 +17,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *firstLanguage;
 @property (nonatomic, retain) Conversation *conv;
 @property (weak, nonatomic) IBOutlet UIButton *fav;
+@property (weak, nonatomic) IBOutlet UIImageView *flag;
 @end

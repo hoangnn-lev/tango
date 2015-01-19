@@ -8,25 +8,47 @@
 
 #import "MainCategoryCollectionViewController.h"
 #import "MainCategoryCollectionViewCell.h"
+#import "ConversationViewController.h"
+#import "DBManager.h"
+#import "Categories.h"
 
-@interface MainCategoryCollectionViewController ()
-
+@interface MainCategoryCollectionViewController (){
+    NSString *current_language;
+    NSMutableArray *categories;
+    UIImageView *logo;
+}
 @end
 
 @implementation MainCategoryCollectionViewController
 
-static NSString * const reuseIdentifier = @"MainCaftegory";
+static NSString * const reuseIdentifier = @"MainCategoryCollectionViewCell";
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [logo setHidden:NO];
+    NSString *check_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
+    if (![current_language isEqualToString:check_language]) {
+        current_language = check_language;
+        [self loadData];
+    }
+    self.navigationItem.title = @"";
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
+    current_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
+    [self loadData];
+    logo = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 38, 25, 76, 30)];
+    logo.image = [UIImage imageNamed:@"logo_1.png"];
+    [self.navigationController.view addSubview:logo];
+  
+}
+
+-(void) loadData{
+
+    NSString *sql = [NSString stringWithFormat:@"select id, name, img from topics where language='%@'", current_language];
+    categories = [[DBManager getSharedInstance] getCategory:sql];
+    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,15 +56,6 @@ static NSString * const reuseIdentifier = @"MainCaftegory";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -52,47 +65,27 @@ static NSString * const reuseIdentifier = @"MainCaftegory";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 6;
+    return [categories count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    MainCategoryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    //cell.img.image = [UIImage imageNamed:@"history"];
-  //  cell.title.text = @"dasdas";
-    cell.title.text = @"aa";
-    cell.backgroundColor = [UIColor redColor];
+    MainCategoryCollectionViewCell *cell = (MainCategoryCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
+    Categories *cat = [categories objectAtIndex:indexPath.row];
+    cell.title.text = cat.name;
+    [cell setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:cat.img]]];
+
     return cell;
 }
 
-#pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    Categories *cat = [categories objectAtIndex:indexPath.row];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ConversationViewController *detail = [storyboard instantiateViewControllerWithIdentifier:@"ConversationViewController"];
+    detail.topic_id = cat.id;
+    detail.topic_name = cat.name;
+    [logo setHidden:YES];
+    [self.navigationController pushViewController:detail animated:YES];
 }
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end

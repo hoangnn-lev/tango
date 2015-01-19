@@ -54,6 +54,8 @@ static sqlite3_stmt *statement = nil;
                 Categories *cat = [[Categories alloc] init];
                 cat.id = sqlite3_column_int(statement, 0);
                 cat.name = [NSString stringWithUTF8String:(char*)sqlite3_column_text(statement, 1)];
+                cat.img =[NSString stringWithUTF8String:(char*)sqlite3_column_text(statement, 2)];
+
                 [resuluteArray addObject:cat];
             }
             
