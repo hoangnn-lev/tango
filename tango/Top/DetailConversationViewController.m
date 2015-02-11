@@ -26,10 +26,6 @@
     return self;
 }
 
--(BOOL) hidesBottomBarWhenPushed{
-    return YES;
-}
-
 - (void)viewDidLoad
 {
     

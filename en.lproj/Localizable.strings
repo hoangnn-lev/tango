@@ -14,9 +14,9 @@
 "Home" = "Home";
 "Favorties" = "Favorties";
 "History" = "History";
-"Setting" = "Other";
+"Setting" = "Setting";
 
-"Language" = "Translation language";
+"Language" = "Language";
 "Share" = "Invite friend";
 "Contact" = "Contact";
 "About" = "About L-translate";
@@ -25,4 +25,11 @@
 "Type some text..." = "Type some text...";
 
 "Done" = "Done";
+"Message_share" = "Your friend recommends this app. \nPlease click the URL link below to download.\nhttp://~";
+"Title" = "Title";
+"Email" = "Email";
 
+
+"ex_title" = "Dear Admin";
+"ex_content1"= "Found a bug ? Have a suggestion ?";
+"ex_content_2"= "We would like to hear from you !";

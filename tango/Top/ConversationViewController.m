@@ -49,10 +49,6 @@
 
 }
 
--(BOOL) hidesBottomBarWhenPushed{
-    return YES;
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

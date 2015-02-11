@@ -30,10 +30,11 @@
 {
     [super viewDidLoad];
     self.tableView.tableFooterView  = [[UIView alloc] initWithFrame:CGRectZero];
-    self.navigationItem.title = @"";
+    self.navigationItem.title =[Language get:@"Language" alter:nil];
+    self.navigationController.navigationBar.topItem.title = @"";
     lng = [[NSArray alloc] initWithObjects:@"en_vn_1.png",@"jp_vn_1.png",@"kr_vn_1.png", nil];
 }
--(BOOL) hidesBottomBarWhenPushed{
+-(BOOL)hidesBottomBarWhenPushed{
     return YES;
 }
 

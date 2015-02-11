@@ -13,10 +13,10 @@
 
 "Home" = "ホーム";
 "Favorites" = "お気に入り";
-"History" = "歴史";
-"Setting" = "その他";
+"History" = "履歴";
+"Setting" = "設定";
 
-"Language" = "翻訳言語";
+"Language" = "言語設定";
 "Share" = "友達を招待";
 "Contact" = "コンタクト";
 "About" = "についてL-translate";
@@ -25,3 +25,9 @@
 "Type some text..." = "テキストを入力...";
 
 "Done" = "終わった";
+"Message_share" = "下のリンクをクリックし、ダウンロードしてください。\nhttp://~";
+"Title" = "タイトル";
+"Email" = "メール";
+"ex_title" = "親愛管理";
+"ex_content1"= "バグを発見されましたか？提案がありますか？";
+"ex_content_2"= "私たちはあなたから話を聞くしたいと思います！";

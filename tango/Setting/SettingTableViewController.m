@@ -46,17 +46,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==1) {
-        NSArray *activityItems = @[@"Share app"];
+        NSArray *activityItems = @[[Language get:@"Message_share" alter:nil]];
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-        activityVC.hidesBottomBarWhenPushed = YES;
         [self presentViewController:activityVC animated:YES completion:nil];
         
-    }else  if (indexPath.row==2) {
-        UIAlertView *v = [[UIAlertView alloc] initWithTitle:@"Contact" message:@"Contact Info ..." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [v show];
-    }else  if (indexPath.row==3) {
-        UIAlertView *v = [[UIAlertView alloc] initWithTitle:@"About" message:@"Abour app" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [v show];
     }
 }
 

@@ -16,6 +16,7 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
 @implementation Translate{
     NSString *translateTextResult;
     NSString *current_language;
+    NSString *translate_language;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -23,11 +24,12 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
     NSString *language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     if (![current_language isEqualToString:language]) {
         current_language = language;
+        translate_language = language;
         self.InputText.text = [Language get:@"Type some text..." alter:nil];
+        self.flag.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_full_1.png",language]];
     }
-    self.flag.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_full_1.png",language]];
-    
 }
+
 
 - (void)viewDidLoad
 {
@@ -52,6 +54,27 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
     [FGTranslator flushCache];
     [FGTranslator flushCredentials];
     [self.loading stopAnimating];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChangeLanguage:)];
+    self.changeLanguage.userInteractionEnabled  =YES;
+    [self.changeLanguage addGestureRecognizer:singleTap];
+    translate_language = current_language;
+}
+
+-(void) clickChangeLanguage:(UIPinchGestureRecognizer *)sender{
+    [self switchLanguage];
+    self.InputText.text = @"";
+    self.result.text = @"";
+}
+
+-(void) switchLanguage{
+    if ([translate_language isEqualToString:@"en"]) {
+        translate_language = @"ja";
+        self.changeLanguage.image = [UIImage imageNamed:@"ja_full_1"];
+    }else{
+        translate_language = @"en";
+        self.changeLanguage.image = [UIImage imageNamed:@"en_full_1"];
+    }
 }
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -100,6 +123,8 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
 
 - (IBAction)clearText:(id)sender {
     self.InputText.text = @"";
+    self.result.text = @"";
+    self.play.hidden = YES;
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -114,6 +139,7 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
     
     if ([textView.text isEqualToString:[Language get:@"Type some text..." alter:nil]]) {
         textView.text = @"";
+        
         textView.textColor = [UIColor whiteColor]; //optional
     }
     [textView becomeFirstResponder];
@@ -133,7 +159,6 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
     [self.view endEditing:YES];
     self.play.hidden = YES;
     translateTextResult = @"";
-    NSString *language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     [reachability startNotifier];
@@ -158,7 +183,7 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
         translator = [[FGTranslator alloc] initWithBingAzureClientId:BING_CLIENT_ID secret:BING_CLIENT_SECRET];
         
         
-        [translator translateText:self.InputText.text withSource:language target:@"vi" completion:^(NSError *error, NSString *translated, NSString *sourceLanguage){
+        [translator translateText:self.InputText.text withSource:translate_language target:@"vi" completion:^(NSError *error, NSString *translated, NSString *sourceLanguage){
             
             if (error)
             {
@@ -170,9 +195,7 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
                 [self.loading stopAnimating];
                 translateTextResult = translated;
                 self.result.text = translated;
-                self.result.font = [UIFont systemFontOfSize:16];
-                CGRect r = self.play.frame;
-                self.result.frame = CGRectMake(10, r.origin.y , self.view.frame.size.width - r.size.width-40, 80);
+                self.result.numberOfLines = 10;
                 [self.result sizeToFit];
                 self.play.hidden = NO;
             }
