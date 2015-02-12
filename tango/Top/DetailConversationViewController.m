@@ -45,6 +45,16 @@
     }
     self.flag.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_flag_translate_1.png",current_language]];
     [self updateHistory];
+    
+    
+    UISwipeGestureRecognizer * swipeleft=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeleft:)];
+    swipeleft.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeleft];
+    
+    UISwipeGestureRecognizer * swiperight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swiperight:)];
+    swiperight.direction=UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swiperight];
+
 }
 
 -(void) updateHistory{
@@ -111,6 +121,58 @@
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
     [self presentViewController:activityController animated:YES completion:nil];
 }
+
+
+
+-(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
+{
+    [self getRecordBySwipe:YES];
+    
+}
+
+-(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
+{
+    [self getRecordBySwipe:NO];
+}
+
+-(void) getRecordBySwipe:(BOOL) swipeLeft{
+    
+    NSString *sql = [NSString stringWithFormat:@"select id, native_language, second_language, favorite from conversations where language='%@' and id < %i  order by id desc limit 1", current_language, self.conv.id];
+    
+    if(swipeLeft){
+        sql = [NSString stringWithFormat:@"select id, native_language, second_language, favorite from conversations where language='%@' and id > %i  order by id asc limit 1", current_language, self.conv.id];
+    }
+    
+    NSMutableArray *cat = [[DBManager getSharedInstance] getConversation:sql];
+    if (cat.count > 0) {
+        Conversation *conv = [cat objectAtIndex:0];
+        self.conv = conv;
+        
+        [UIView transitionWithView: self.view
+                          duration: 0.35f
+                           options: UIViewAnimationOptionTransitionCrossDissolve
+                        animations: ^(void)
+         {
+             
+             self.secondLanguage.text = self.conv.native_language;
+             self.firstLanguage.text = self.conv.second_language;
+             
+             if ([self.conv.favorite isEqualToString:@"1"]) {
+                 self.fav.selected = YES;
+             }else{
+                 self.fav.selected = NO;
+             }
+             
+             [self updateHistory];
+             
+         }
+                        completion: ^(BOOL isFinished)
+         {
+         }];
+    }
+    
+}
+
 
 
 @end

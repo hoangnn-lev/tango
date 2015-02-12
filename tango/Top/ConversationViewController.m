@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Hoang. All rights reserved.
 //
 #import "DBManager.h"
+#import "Categories.h"
 #import "Conversation.h"
 #import "ConversationViewController.h"
 #import "ConversationTableViewCell.h"
@@ -34,19 +35,47 @@
     if (![current_language isEqualToString:check_language]) {
         [self.navigationController popToRootViewControllerAnimated:NO];
     }
+    
+    // Disable iOS  back gesture
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+    
+    UISwipeGestureRecognizer * swipeleft=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeleft:)];
+    swipeleft.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeleft];
+    
+    UISwipeGestureRecognizer * swiperight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swiperight:)];
+    swiperight.direction=UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swiperight];
+}
+
+
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     current_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
+    [self loadConversation];
     
-    datas = [[NSMutableArray alloc] init];
+    self.tableView.tableFooterView = [[UIView alloc] init];
+
+}
+
+-(void) loadConversation{
+    if (datas==nil) {
+        datas = [[NSMutableArray alloc] init];
+    }
     
     NSString *sql = [NSString stringWithFormat:@"select id, native_language, second_language, favorite from conversations where topic_id='%d'", self.topic_id];
     datas = [[DBManager getSharedInstance] getConversation:sql];
-    self.tableView.tableFooterView = [[UIView alloc] init];
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,5 +115,47 @@
     detail.conv = [datas objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:detail animated:YES];
 }
+
+-(void)swipeleft:(UISwipeGestureRecognizer*)gestureRecognizer
+{
+   [self getRecordBySwipe:YES];
+    
+}
+
+-(void)swiperight:(UISwipeGestureRecognizer*)gestureRecognizer
+{
+    [self getRecordBySwipe:NO];
+}
+
+-(void) getRecordBySwipe:(BOOL) swipeLeft{
+    
+    NSString *sql = [NSString stringWithFormat:@"select id, name, img from topics where language='%@' and id < %i  order by id desc limit 1", current_language, self.topic_id];
+    
+    if(swipeLeft){
+        sql = [NSString stringWithFormat:@"select id, name, img from topics where language='%@' and id > %i  order by id asc limit 1", current_language, self.topic_id];
+    }
+    
+    NSMutableArray *cat = [[DBManager getSharedInstance] getCategory:sql];
+    if (cat.count > 0) {
+        Categories *categories = [cat objectAtIndex:0];
+        self.topic_id = categories.id;
+        self.topic_name = categories.name;
+        self.navigationItem.title = self.topic_name;
+        
+        [self loadConversation];
+        [UIView transitionWithView: self.tableView
+                          duration: 0.35f
+                           options: UIViewAnimationOptionTransitionCrossDissolve
+                        animations: ^(void)
+         {
+             [self.tableView reloadData];
+         }
+                        completion: ^(BOOL isFinished)
+         {
+         }];
+    }
+
+}
+
 
 @end

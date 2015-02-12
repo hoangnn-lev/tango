@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ConversationViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ConversationViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 @property int topic_id;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSString* topic_name;
