@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainCategoryCollectionViewController : UICollectionViewController
+@interface MainCategoryCollectionViewController : UICollectionViewController<UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @end
