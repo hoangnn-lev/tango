@@ -32,12 +32,10 @@
     [super viewDidLoad];
     current_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     
-    self.firstLanguage.text = self.conv.second_language;
-    self.firstLanguage.numberOfLines = 0;
+    self.firstLanguage.text = self.conv.native_language;
     [self.firstLanguage sizeToFit];
 
-    self.secondLanguage.text = self.conv.native_language;
-    self.secondLanguage.numberOfLines = 0;
+    self.secondLanguage.text = self.conv.second_language;
     [self.secondLanguage sizeToFit];
 
     if ([self.conv.favorite isEqualToString:@"1"]) {
@@ -154,8 +152,8 @@
                         animations: ^(void)
          {
              
-             self.secondLanguage.text = self.conv.native_language;
-             self.firstLanguage.text = self.conv.second_language;
+             self.secondLanguage.text = self.conv.second_language;
+             self.firstLanguage.text = self.conv.native_language;
              
              if ([self.conv.favorite isEqualToString:@"1"]) {
                  self.fav.selected = YES;

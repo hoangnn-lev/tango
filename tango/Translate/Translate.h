@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *clearText;
 @property (weak, nonatomic) IBOutlet UIImageView *flag;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
-@property (weak, nonatomic) IBOutlet UILabel *result;
 @property (weak, nonatomic) IBOutlet UIImageView *changeLanguage;
+@property (weak, nonatomic) IBOutlet UITextView *result;
 
 @end

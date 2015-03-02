@@ -195,7 +195,6 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
                 [self.loading stopAnimating];
                 translateTextResult = translated;
                 self.result.text = translated;
-                self.result.numberOfLines = 10;
                 [self.result sizeToFit];
                 self.play.hidden = NO;
             }

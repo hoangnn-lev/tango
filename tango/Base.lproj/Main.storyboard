@@ -105,17 +105,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_translate_b_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="048-N8-ocl">
                                 <rect key="frame" x="10" y="250" width="300" height="140"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bạn bao nhiêu tuổi." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="257" translatesAutoresizingMaskIntoConstraints="NO" id="qeO-nw-UIl">
-                                <rect key="frame" x="25" y="280" width="270" height="100"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="How old are you ?" lineBreakMode="headTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Nrh-GE-tbO">
-                                <rect key="frame" x="25" y="84" width="270" height="100"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEI-l4-mMI">
                                 <rect key="frame" x="58" y="424" width="50" height="50"/>
                                 <state key="normal" image="round_share_send_1.png">
@@ -134,15 +123,27 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="en_flag_translate_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="NCj-I6-4jG">
                                 <rect key="frame" x="25" y="215" width="32" height="32"/>
                             </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="How old are you ?" translatesAutoresizingMaskIntoConstraints="NO" id="dHu-HG-R81">
+                                <rect key="frame" x="25" y="81" width="270" height="105"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Bạn bao nhiêu tuổi ?" translatesAutoresizingMaskIntoConstraints="NO" id="afb-SU-FuC">
+                                <rect key="frame" x="25" y="280" width="272" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="qLU-lx-YUs"/>
                     <connections>
                         <outlet property="fav" destination="52g-a7-DpU" id="CTC-hb-m5H"/>
-                        <outlet property="firstLanguage" destination="qeO-nw-UIl" id="Slm-Uc-AI1"/>
+                        <outlet property="firstLanguage" destination="dHu-HG-R81" id="IwC-fU-T4Z"/>
                         <outlet property="flag" destination="NCj-I6-4jG" id="wi3-xI-Tqp"/>
-                        <outlet property="secondLanguage" destination="Nrh-GE-tbO" id="VK8-Ri-o4I"/>
+                        <outlet property="secondLanguage" destination="afb-SU-FuC" id="bC7-zo-I1i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdm-Xx-EXa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -234,12 +235,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_translation_full_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ekr-WM-DU7">
                                 <rect key="frame" x="111" y="219" width="110" height="70"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FrG-dK-2sh">
-                                <rect key="frame" x="16" y="310" width="226" height="80"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8R-8v-rba">
+                                <rect key="frame" x="9" y="304" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -251,7 +252,7 @@
                         <outlet property="flag" destination="wKk-bZ-BBx" id="z8q-tF-QIO"/>
                         <outlet property="loading" destination="1Yw-el-H4Q" id="Q0B-f9-KCg"/>
                         <outlet property="play" destination="JWS-Je-xIj" id="mCO-iB-JtT"/>
-                        <outlet property="result" destination="FrG-dK-2sh" id="PFG-nY-vOA"/>
+                        <outlet property="result" destination="S8R-8v-rba" id="8hQ-pX-GrH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G9Z-TF-txJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

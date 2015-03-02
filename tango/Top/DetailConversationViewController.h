@@ -13,8 +13,8 @@
 
 @interface DetailConversationViewController : UIViewController
 @property (nonatomic, retain) AVAudioPlayer *myAudioPlayer;
-@property (weak, nonatomic) IBOutlet UILabel *secondLanguage;
-@property (weak, nonatomic) IBOutlet UILabel *firstLanguage;
+@property (weak, nonatomic) IBOutlet UITextView *firstLanguage;
+@property (weak, nonatomic) IBOutlet UITextView *secondLanguage;
 @property (nonatomic, retain) Conversation *conv;
 @property (weak, nonatomic) IBOutlet UIButton *fav;
 @property (weak, nonatomic) IBOutlet UIImageView *flag;
