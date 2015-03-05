@@ -12,11 +12,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSString *language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
-    if (language==nil) {
-        [Language setLanguage:@"en"];
-    }
-    
+
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     UITabBar *tabBar = tabBarController.tabBar;
     

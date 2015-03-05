@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface ContactViewController : UIViewController<UITextViewDelegate>
+@interface ContactViewController : UIViewController<UITextViewDelegate,MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *email;
 @property (weak, nonatomic) IBOutlet UITextView *content;
 @property (weak, nonatomic) IBOutlet UITextField *mail_title;
-@property (weak, nonatomic) IBOutlet UILabel *ex_title;
 @property (weak, nonatomic) IBOutlet UILabel *ex_content1;
 @property (weak, nonatomic) IBOutlet UILabel *ex_content_2;
 @end

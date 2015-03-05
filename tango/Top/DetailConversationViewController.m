@@ -8,9 +8,11 @@
 
 #import "DetailConversationViewController.h"
 #import "DBManager.h"
+#import "VLDContextSheetItem.h"
 
 @interface DetailConversationViewController (){
-        NSString *current_language;
+    NSString *current_language;
+    int tag;
 }
 @end
 @implementation DetailConversationViewController
@@ -30,10 +32,11 @@
 {
     
     [super viewDidLoad];
-    current_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     
+    current_language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     self.firstLanguage.text = self.conv.native_language;
     [self.firstLanguage sizeToFit];
+    
 
     self.secondLanguage.text = self.conv.second_language;
     [self.secondLanguage sizeToFit];
@@ -53,7 +56,15 @@
     swiperight.direction=UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swiperight];
 
+    [self createContextSheet];
+   
+   
+    [self.firstLanguage addGestureRecognizer: [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(longPressed:)]];
+    [self.secondLanguage addGestureRecognizer: [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(longPressed1:)]];
+    
 }
+
+
 
 -(void) updateHistory{
     
@@ -172,5 +183,43 @@
 }
 
 
+- (void) createContextSheet {
+    VLDContextSheetItem *item1 = [[VLDContextSheetItem alloc] initWithTitle: @"Copy"
+                                                                      image: [UIImage imageNamed: @"Copy"]
+                                                           highlightedImage: [UIImage imageNamed: @"Copy"]];
+    
+    
+    self.contextSheet = [[VLDContextSheet alloc] initWithItems: @[ item1]];
+    self.contextSheet.delegate = self;
+}
+
+- (void) contextSheet: (VLDContextSheet *) contextSheet didSelectItem: (VLDContextSheetItem *) item{
+    UIPasteboard *pd = [UIPasteboard generalPasteboard];
+    if (tag==0) {
+         [pd setString:self.firstLanguage.text];
+    }else{
+         [pd setString:self.secondLanguage.text];
+    }
+   
+    
+}
+
+- (void) longPressed: (UIGestureRecognizer *) gestureRecognizer {
+    
+    if(gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        tag = 0;
+        [self.contextSheet startWithGestureRecognizer: gestureRecognizer
+                                               inView: self.view];
+    }
+}
+
+- (void) longPressed1: (UIGestureRecognizer *) gestureRecognizer {
+    
+    if(gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        tag = 1;
+        [self.contextSheet startWithGestureRecognizer: gestureRecognizer
+                                               inView: self.view];
+    }
+}
 
 @end

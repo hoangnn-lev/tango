@@ -10,11 +10,12 @@
 #import <UIKit/UIKit.h>
 #include <AudioToolbox/AudioToolbox.h>
 #import "Reachability.h"
+#import "VLDContextSheet.h"
 
-@interface Translate : UIViewController<UIAlertViewDelegate, UITextFieldDelegate>
+@interface Translate : UIViewController<UIAlertViewDelegate, UITextFieldDelegate, VLDContextSheetDelegate>
 @property (nonatomic, retain) AVAudioPlayer *myAudioPlayer;
 @property (weak, nonatomic) IBOutlet UITextField *InputText;
-
+@property (strong, nonatomic) VLDContextSheet *contextSheet;
 @property (nonatomic) Reachability *internetReachability;
 @property (weak, nonatomic) IBOutlet UIButton *play;
 @property (weak, nonatomic) IBOutlet UIButton *clearText;

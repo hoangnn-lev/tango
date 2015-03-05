@@ -8,6 +8,7 @@
 
 #import "Translate.h"
 #import "FGTranslator.h"
+#import "VLDContextSheetItem.h"
 
 static NSString *const GOOGLE_API_KEY = @"AIzaSyBUPWCNU_fW5BQ-MgQUAD5m0RUEU_G_FyU";
 static NSString *const BING_CLIENT_ID = @"jp_leverages_tango_bing";
@@ -26,8 +27,23 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
         current_language = language;
         translate_language = language;
         self.InputText.text = [Language get:@"Type some text..." alter:nil];
+        self.InputText.font = [UIFont systemFontOfSize:28];
+        self.InputText.textColor = [UIColor lightTextColor];
         self.flag.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_full_1.png",language]];
     }
+    
+    self.InputText.delegate = self;
+    
+    UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
+    [keyboardDoneButtonView sizeToFit];
+    UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                      target:nil action:nil];
+    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:[Language get:@"Done" alter:nil]
+                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                  action:@selector(doneClicked:)];
+    [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:flexBarButton, doneButton, nil]];
+    self.InputText.inputAccessoryView = keyboardDoneButtonView;
 }
 
 
@@ -38,18 +54,7 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
     self.play.hidden = YES;
     
     self.InputText.text = [Language get:@"Type some text..." alter:nil];
-    self.InputText.delegate = self;
     
-    UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
-    [keyboardDoneButtonView sizeToFit];
-    UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
-                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                      target:nil action:nil];
-    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                   style:UIBarButtonItemStyleBordered target:self
-                                                                  action:@selector(doneClicked:)];
-    [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:flexBarButton, doneButton, nil]];
-    self.InputText.inputAccessoryView = keyboardDoneButtonView;
     
     [FGTranslator flushCache];
     [FGTranslator flushCredentials];
@@ -59,6 +64,10 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
     self.changeLanguage.userInteractionEnabled  =YES;
     [self.changeLanguage addGestureRecognizer:singleTap];
     translate_language = current_language;
+    
+    [self createContextSheet];
+    UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(longPressed:)];
+    [self.result addGestureRecognizer: gestureRecognizer];
 }
 
 -(void) clickChangeLanguage:(UIPinchGestureRecognizer *)sender{
@@ -141,6 +150,7 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
         textView.text = @"";
         
         textView.textColor = [UIColor whiteColor]; //optional
+        textView.font = [UIFont systemFontOfSize:35];
     }
     [textView becomeFirstResponder];
 }
@@ -149,6 +159,7 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
 {
     if ([textView.text isEqualToString:@""]) {
         textView.text = [Language get:@"Type some text..." alter:nil];
+        textView.font = [UIFont systemFontOfSize:28];
         textView.textColor = [UIColor lightTextColor]; //optional
     }
     [textView resignFirstResponder];
@@ -199,6 +210,31 @@ static NSString *const BING_CLIENT_SECRET = @"VU35ecqSJVSsWjjH+BEvuHII3SB480ZO0J
                 self.play.hidden = NO;
             }
         }];
+    }
+}
+
+
+- (void) createContextSheet {
+    VLDContextSheetItem *item1 = [[VLDContextSheetItem alloc] initWithTitle: @"Copy"
+                                                                      image: [UIImage imageNamed: @"Copy"]
+                                                           highlightedImage: [UIImage imageNamed: @"Copy"]];
+    
+    
+    self.contextSheet = [[VLDContextSheet alloc] initWithItems: @[ item1]];
+    self.contextSheet.delegate = self;
+}
+
+- (void) contextSheet: (VLDContextSheet *) contextSheet didSelectItem: (VLDContextSheetItem *) item {
+    UIPasteboard *pd = [UIPasteboard generalPasteboard];
+    [pd setString:self.result.text];
+    
+}
+
+- (void) longPressed: (UIGestureRecognizer *) gestureRecognizer {
+   
+    if(gestureRecognizer.state == UIGestureRecognizerStateBegan && ![self.result.text isEqualToString:@""]) {
+        [self.contextSheet startWithGestureRecognizer: gestureRecognizer
+                                               inView: self.view];
     }
 }
 

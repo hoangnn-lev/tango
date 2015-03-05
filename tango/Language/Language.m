@@ -15,8 +15,14 @@ static NSBundle *bundle = nil;
 +(void)initialize {
     
     NSString *language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
-    if([language isEqual:@""]){
-       language=@"en";
+    if(language==nil){
+        
+        language = [[NSLocale preferredLanguages] objectAtIndex:0];
+        if ([language isEqualToString:@"ja"]) {
+            language=@"ja";
+        }else{
+            language=@"en";
+        }
     }
    [self setLanguage:language];
 
@@ -29,7 +35,7 @@ static NSBundle *bundle = nil;
  */
 
 +(void)setLanguage :(NSString *) language{
- 
+
     NSString *path = [[ NSBundle mainBundle ] pathForResource:language ofType:@"lproj" ];
     bundle = [NSBundle bundleWithPath:path];
     

@@ -34,6 +34,8 @@ static NSString * const reuseIdentifier = @"MainCategoryCollectionViewCell";
     if (![current_language isEqualToString:check_language]) {
         current_language = check_language;
         [self loadData];
+        [searchBar removeFromSuperview];
+        [self searchButton];
     }
     self.navigationItem.title = @"";
 }
@@ -56,7 +58,7 @@ static NSString * const reuseIdentifier = @"MainCategoryCollectionViewCell";
     UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                       target:nil action:nil];
-    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:[Language get:@"cancel" alter:nil]
                                                                    style:UIBarButtonItemStyleBordered target:self
                                                                   action:@selector(doneClicked:)];
     [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:flexBarButton, doneButton, nil]];

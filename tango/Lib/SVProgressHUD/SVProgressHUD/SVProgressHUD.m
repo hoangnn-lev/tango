@@ -283,6 +283,7 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
                                             context:NULL];
         } else {
           CGSize stringSize = [string sizeWithFont:self.stringLabel.font constrainedToSize:CGSizeMake(200, 300)];
+            
           stringRect = CGRectMake(0.0f, 0.0f, stringSize.width, stringSize.height);
         }
         stringWidth = stringRect.size.width;

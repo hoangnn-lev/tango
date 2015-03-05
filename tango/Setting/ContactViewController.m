@@ -31,7 +31,7 @@
     UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                       target:nil action:nil];
-    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:[Language get:@"Done" alter:nil]
                                                                    style:UIBarButtonItemStyleBordered target:self
                                                                   action:@selector(doneClicked:)];
     [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:flexBarButton, doneButton, nil]];
@@ -57,7 +57,6 @@
     [self.navigationItem setRightBarButtonItems:rightNavigtaionBarButtonItems];
     
     
-    self.ex_title.text = [Language get:@"ex_title" alter:nil];
     self.ex_content1.text = [Language get:@"ex_content1" alter:nil];
     self.ex_content_2.text = [Language get:@"ex_content_2" alter:nil];
 
@@ -70,9 +69,35 @@
 
 - (void)sendMail:(UIButton *)sender{
     
+    
     if([self checkValidate])
     {
-        NSLog(@"dasdsa");
+        if ([MFMailComposeViewController canSendMail])
+        {
+            MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+            
+            mailer.mailComposeDelegate = self;
+            
+            [mailer setSubject:self.mail_title.text];
+            
+            NSArray *toRecipients = [NSArray arrayWithObjects:@"vietnam-app@leverages.jp", nil];
+            [mailer setToRecipients:toRecipients];
+            
+            NSString *emailBody = self.content.text;
+            [mailer setMessageBody:emailBody isHTML:NO];
+            
+            [self presentViewController:mailer animated:YES completion:nil];
+            
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[Language get:@"Notify" alter:nil]
+                                                            message:[Language get:@"Mail not support" alter:nil]
+                                                           delegate:nil
+                                                  cancelButtonTitle:[Language get:@"Done" alter:nil]
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
     }
 }
 
@@ -107,22 +132,22 @@
     
     if (![self validateEmail:[self.email text]])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notify" message:@"Email invalid !" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[Language get:@"Notify" alter:nil] message:[Language get:@"Mail error" alter:nil] delegate:self cancelButtonTitle:[Language get:@"Done" alter:nil] otherButtonTitles:nil, nil];
 
         [alert show];
         return FALSE;
     }
-    else if(title.length <6 )
+    else if(title.length <1 )
     {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notify" message:@"Title short !" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[Language get:@"Notify" alter:nil] message:[Language get:@"Title empty" alter:nil] delegate:self cancelButtonTitle:[Language get:@"Done" alter:nil] otherButtonTitles:nil, nil];
         
         [alert show];
         return FALSE;
     }
-    else if( content.length <10 )
+    else if( content.length <1 )
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notify" message:@"Content short !" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[Language get:@"Notify" alter:nil] message:[Language get:@"Content empty" alter:nil] delegate:self cancelButtonTitle:[Language get:@"Done" alter:nil] otherButtonTitles:nil, nil];
         
         [alert show];
         return FALSE;
@@ -139,5 +164,9 @@
     return YES;
 }
 
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+        [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

@@ -19,7 +19,7 @@
 "Language" = "Language";
 "Share" = "Invite friend";
 "Contact" = "Contact";
-"About" = "About L-translate";
+"About" = "About";
 
 "Translate" = "Translate";
 "Type some text..." = "Type some text...";
@@ -30,6 +30,20 @@
 "Email" = "Email";
 
 
-"ex_title" = "Dear Admin";
 "ex_content1"= "Found a bug ? Have a suggestion ?";
 "ex_content_2"= "We would like to hear from you !";
+
+"cancel" = "Cancel";
+"unable to translate" = "Unable to translate";
+
+"Mail empty" = "Please input email.";
+"Title empty" ="Please input title.";
+"Content empty" ="Please input content.";
+"Mail error" = "Email invalid.";
+"send mail success" = "Send mail successful";
+
+"Notify" = "Notify";
+"Mail not support" = "Your device doesn't support the composer sheet";
+
+"japan"  = "       Japan";
+"english" = "       English";

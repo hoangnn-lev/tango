@@ -397,7 +397,7 @@ float const FGTranslatorUnknownConfidence = -1;
 {
     if ([self isTranslated:translatedMessage sameAsOriginal:original])
     {
-        NSError *fgError = [self errorWithCode:FGTranslatorErrorUnableToTranslate description:@"unable to translate"];
+        NSError *fgError = [self errorWithCode:FGTranslatorErrorUnableToTranslate description:[Language get:@"unable to translate" alter:nil]];
         if (self.completionHandler)
             self.completionHandler(fgError, nil, nil);
     }

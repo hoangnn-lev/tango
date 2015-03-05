@@ -18,16 +18,32 @@
 
 "Language" = "言語設定";
 "Share" = "友達を招待";
-"Contact" = "コンタクト";
-"About" = "についてL-translate";
+"Contact" = "フィードバック";
+"About" = "ナイトライフトークについて";
 
-"Translate" = "翻訳する";
+"Translate" = "通訳";
 "Type some text..." = "テキストを入力...";
 
 "Done" = "終わった";
 "Message_share" = "下のリンクをクリックし、ダウンロードしてください。\nhttp://~";
 "Title" = "タイトル";
 "Email" = "メール";
-"ex_title" = "親愛管理";
-"ex_content1"= "バグを発見されましたか？提案がありますか？";
-"ex_content_2"= "私たちはあなたから話を聞くしたいと思います！";
+"ex_content1"= "不具合を発見されましたか？";
+"ex_content_2"= "提案はありませんか？";
+
+"cancel" = "キャンセル";
+"unable to translate" = " 通訳できません";
+
+"Mail empty" = "送信先を入力してください";
+"Title empty" ="内容入力してください";
+"Content empty" ="タイトル入力してください。";
+"Mail error" = "送信先が間違っています。";
+"send mail success" = "メール送信します。";
+
+"Notify" = "通知する";
+"Mail not support" = "メール送信できません";
+
+"japan"  = "       日本語";
+"english" = "       英語";
+
+

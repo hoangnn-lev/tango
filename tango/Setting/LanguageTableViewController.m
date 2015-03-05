@@ -26,6 +26,9 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -33,6 +36,8 @@
     self.navigationItem.title =[Language get:@"Language" alter:nil];
     self.navigationController.navigationBar.topItem.title = @"";
     lng = [[NSArray alloc] initWithObjects:@"en_vn_1.png",@"jp_vn_1.png",@"kr_vn_1.png", nil];
+    
+    
 }
 -(BOOL)hidesBottomBarWhenPushed{
     return YES;
@@ -46,11 +51,14 @@
 
 #pragma mark - Table view data source
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 2;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
-
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -65,7 +73,7 @@
             [Language setLanguage:@"ko"];
             break;
     }
-
+    
     
     UITabBar *tabBar = self.tabBarController.tabBar;
     
@@ -93,13 +101,12 @@
     if (cell==nil) {
         
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(20, 13, 215, 18)];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(20, 13, 18, 18)];
         img.image = [UIImage imageNamed:lng[indexPath.row]];
         
         [cell addSubview:img];
         
     }
-    
     NSString *language = [[NSUserDefaults standardUserDefaults] stringForKey:@"language"];
     if ([language isEqualToString:@"en"] && indexPath.row==0) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -111,7 +118,20 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (indexPath.row==0) {
+        cell.textLabel.text = [Language get:@"english" alter:nil];
+    }else{
+        cell.textLabel.text = [Language get:@"japan" alter:nil];
+    }
+    
+    
     return cell;
 }
 
 @end
+
+    
+
+    
+    

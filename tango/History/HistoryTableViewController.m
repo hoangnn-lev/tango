@@ -61,7 +61,7 @@
         datas = [[NSMutableArray alloc] init];
     }
     
-    NSString *sql = [NSString stringWithFormat: @"select id, native_language, second_language, favorite from conversations where modified<>0 and language='%@' order by modified desc", current_language];
+    NSString *sql = [NSString stringWithFormat: @"select id, native_language, second_language, favorite from conversations where modified<>0 order by modified desc limit 50"];
     datas = [[DBManager getSharedInstance] getConversation:sql];
     [self.tableView reloadData];
     
@@ -101,8 +101,8 @@
     ConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"row"];
     cell = [[ConversationTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"row"];
     Conversation *conv = [datas objectAtIndex:indexPath.row];
-    cell.textLabel.text = conv.native_language;
-    cell.detailTextLabel.text = conv.second_language;
+    cell.textLabel.text = conv.second_language;
+    cell.detailTextLabel.text = conv.native_language;
     cell.detailTextLabel.textColor = [UIColor grayColor];
     
     return cell;

@@ -99,6 +99,9 @@
 		E4118CEF1A68EE3900FA9372 /* kr_vn_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4118CE61A68EE3900FA9372 /* kr_vn_1@2x.png */; };
 		E4118CF01A68EE3900FA9372 /* kr_vn_1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4118CE71A68EE3900FA9372 /* kr_vn_1@3x.png */; };
 		E4118CF11A68EE3900FA9372 /* kr_vn_1@4x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4118CE81A68EE3900FA9372 /* kr_vn_1@4x.png */; };
+		E47B22F01AA832B000634137 /* VLDContextSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = E47B22EB1AA832B000634137 /* VLDContextSheet.m */; };
+		E47B22F11AA832B000634137 /* VLDContextSheetItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E47B22ED1AA832B000634137 /* VLDContextSheetItem.m */; };
+		E47B22F21AA832B000634137 /* VLDContextSheetItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E47B22EF1AA832B000634137 /* VLDContextSheetItemView.m */; };
 		E4A844A71A6CA97100A7FE8C /* translate_iOS_57.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A844A21A6CA97100A7FE8C /* translate_iOS_57.png */; };
 		E4A844A81A6CA97100A7FE8C /* translate_iOS_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A844A31A6CA97100A7FE8C /* translate_iOS_114.png */; };
 		E4A844A91A6CA97100A7FE8C /* translate_iOS_120.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A844A41A6CA97100A7FE8C /* translate_iOS_120.png */; };
@@ -441,6 +444,12 @@
 		E4118CE61A68EE3900FA9372 /* kr_vn_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kr_vn_1@2x.png"; sourceTree = "<group>"; };
 		E4118CE71A68EE3900FA9372 /* kr_vn_1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kr_vn_1@3x.png"; sourceTree = "<group>"; };
 		E4118CE81A68EE3900FA9372 /* kr_vn_1@4x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kr_vn_1@4x.png"; sourceTree = "<group>"; };
+		E47B22EA1AA832B000634137 /* VLDContextSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLDContextSheet.h; sourceTree = "<group>"; };
+		E47B22EB1AA832B000634137 /* VLDContextSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLDContextSheet.m; sourceTree = "<group>"; };
+		E47B22EC1AA832B000634137 /* VLDContextSheetItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLDContextSheetItem.h; sourceTree = "<group>"; };
+		E47B22ED1AA832B000634137 /* VLDContextSheetItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLDContextSheetItem.m; sourceTree = "<group>"; };
+		E47B22EE1AA832B000634137 /* VLDContextSheetItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLDContextSheetItemView.h; sourceTree = "<group>"; };
+		E47B22EF1AA832B000634137 /* VLDContextSheetItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLDContextSheetItemView.m; sourceTree = "<group>"; };
 		E4A844A21A6CA97100A7FE8C /* translate_iOS_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = translate_iOS_57.png; sourceTree = "<group>"; };
 		E4A844A31A6CA97100A7FE8C /* translate_iOS_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = translate_iOS_114.png; sourceTree = "<group>"; };
 		E4A844A41A6CA97100A7FE8C /* translate_iOS_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = translate_iOS_120.png; sourceTree = "<group>"; };
@@ -638,6 +647,7 @@
 		840F4A2619F4DF3C0051AA59 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				E47B22E91AA832B000634137 /* VLDContextSheet */,
 				8490734919F75FDD003FDE1E /* SDWebImage */,
 				8410C3D319F4EED300E4F1F6 /* Reachability */,
 				840F4A6E19F4DF790051AA59 /* FGTranslator */,
@@ -1060,6 +1070,19 @@
 				E4A844A61A6CA97100A7FE8C /* translate_iOS_1024.png */,
 			);
 			name = Logo;
+			sourceTree = "<group>";
+		};
+		E47B22E91AA832B000634137 /* VLDContextSheet */ = {
+			isa = PBXGroup;
+			children = (
+				E47B22EA1AA832B000634137 /* VLDContextSheet.h */,
+				E47B22EB1AA832B000634137 /* VLDContextSheet.m */,
+				E47B22EC1AA832B000634137 /* VLDContextSheetItem.h */,
+				E47B22ED1AA832B000634137 /* VLDContextSheetItem.m */,
+				E47B22EE1AA832B000634137 /* VLDContextSheetItemView.h */,
+				E47B22EF1AA832B000634137 /* VLDContextSheetItemView.m */,
+			);
+			path = VLDContextSheet;
 			sourceTree = "<group>";
 		};
 		E47C092419F7AD61005214DC /* Category */ = {
@@ -1584,6 +1607,7 @@
 				840F4A5719F4DF3C0051AA59 /* AFHTTPRequestOperation.m in Sources */,
 				840F4A7B19F4DF790051AA59 /* FGTranslateRequest.m in Sources */,
 				84B90AC419D93BC700F69648 /* Conversation.m in Sources */,
+				E47B22F21AA832B000634137 /* VLDContextSheetItemView.m in Sources */,
 				8490737319F75FDD003FDE1E /* SDWebImagePrefetcher.m in Sources */,
 				846B185B19F76C7C006258B1 /* MainCategoryCollectionViewCell.m in Sources */,
 				84FE3B0019D902B3007FA202 /* CategoryTableViewCell.m in Sources */,
@@ -1613,6 +1637,7 @@
 				8490737819F75FDD003FDE1E /* UIImageView+WebCache.m in Sources */,
 				840F4A7E19F4DF790051AA59 /* XMLDictionary.m in Sources */,
 				840F4A5F19F4DF3C0051AA59 /* AFURLSessionManager.m in Sources */,
+				E47B22F11AA832B000634137 /* VLDContextSheetItem.m in Sources */,
 				840F4A6219F4DF3C0051AA59 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				840F4A7D19F4DF790051AA59 /* NSString+FGTranslator.m in Sources */,
 				8425E0B419D8ED170046BE7F /* DBManager.m in Sources */,
@@ -1632,6 +1657,7 @@
 				8490737619F75FDD003FDE1E /* UIImage+MultiFormat.m in Sources */,
 				840F4A6419F4DF3C0051AA59 /* UIAlertView+AFNetworking.m in Sources */,
 				84E30D6D19D3C32E007C1A54 /* ConversationViewController.m in Sources */,
+				E47B22F01AA832B000634137 /* VLDContextSheet.m in Sources */,
 				841659BA19D3C99000828B5E /* ConversationTableViewCell.m in Sources */,
 				840F4A5819F4DF3C0051AA59 /* AFHTTPRequestOperationManager.m in Sources */,
 				840F4A5B19F4DF3C0051AA59 /* AFSecurityPolicy.m in Sources */,
@@ -1778,14 +1804,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: LEVERAGES VIETNAM COMPANY LIMITED (AH6E4EB9TT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: LEVERAGES VIETNAM COMPANY LIMITED (AH6E4EB9TT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tango/tango-Prefix.pch";
 				INFOPLIST_FILE = "tango/tango-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "97ae9fd8-a05a-488c-895e-c74f65d58768";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1794,14 +1820,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: LEVERAGES VIETNAM COMPANY LIMITED (AH6E4EB9TT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: LEVERAGES VIETNAM COMPANY LIMITED (AH6E4EB9TT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tango/tango-Prefix.pch";
 				INFOPLIST_FILE = "tango/tango-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "97ae9fd8-a05a-488c-895e-c74f65d58768";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
